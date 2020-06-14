@@ -1,0 +1,177 @@
+{% load static %}
+<div class="container">
+  <div class="row bg-white m-t-50 m-b-50">
+    <div class="col-md-9 col-sm-9 profile_left">
+        <div class="row">
+            <div class="col-md-3">
+              <div>
+                <form action="" method="POST" enctype="multipart/form-data">
+                  <img src="" alt="" class="u-pf-up-prev img-responsive">
+                  <div class="form-group">
+                    <input class="u-pf-up" name="photo" type="file" accept="image/jpg, image/png, image/jpeg" class="form-control bor-0 f_upload bora-0">
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-s-green pull-right">Save</button>
+                    <a href="/user/profile" class="btn btn-gray pull-right">Cancel</a>
+                  </div>
+                </form>
+              </div>
+              <div class="clearfix"></div>
+              <div class="rank_secs">
+                <h1>Your Rank</h1>
+                <ul class="rank_details">
+                    <li {% if user.genetic_type_code = 'novice' %} class="selected" {% endif %}>
+                        <img src="{% static 'genopedia/images/step01.png' %}">
+                        <span>Genetic Novice</span>
+                    </li>
+                    <li {% if user.genetic_type_code == 'hobbyist' %} class="selected" {% endif %}>
+                        <img src="{% static 'genopedia/images/step02.png' %}">
+                        <span>Genetic Hobbyist</span>
+                    </li>
+                    <li {% if user.genetic_type_code == 'specialist' %} class="selected" {% endif %}>
+                        <img src="{% static 'genopedia/images/step03.png' %}">
+                        <span>Genetic Specialist</span>
+                    </li>
+                    <li {% if user.genetic_type_code == 'professional' %} class="selected" {% endif %}>
+                        <img src="{% static 'genopedia/images/step04.png' %}">
+                        <span>Genetic Professionall</span>
+                    </li>
+                    <li {% if user.genetic_type_code == 'moderator' %} class="selected" {% endif %}>
+                        <img src="{% static 'genopedia/images/step05.png' %}">
+                        <span>Genetic Moderator</span>
+                    </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-9">
+                <h1 class="fs-16 p-b-15">{{ user.username }}</h1>
+                <p>{{ user.about|linebreaks }}</p>
+
+                <div class="personaldetails_list">
+                  <p class="bold_txt edit_txt fs-16">Personal information <a class="right" href="/user/profile/edit" title="edit"><i class="fa fa-pencil"></i></a></p>
+                  <table class="table table-striped">
+                      <tbody>
+                          <tr>
+                             <td width="40">Emai</td>
+                             <td width="100">{{ user.email }}</td>
+                         </tr>
+                         <tr>
+                             <td>Full name</td>
+                             <td>{{ user.fullname }}</td>
+                         </tr>
+                         <tr>
+                             <td>Birthday</td>
+                             <td>{{ user.birthday }}</td>
+                         </tr>
+                         <tr>
+                             <td>Gende</td>
+                             <td>{{ user.gender }}</td>
+                         </tr> 
+                         <tr>
+                             <td>Countr</td>
+                             <td>{{ user.country }}</td>
+                         </tr> 
+                         <tr>
+                             <td>Educatio</td>
+                             <td>{{ user.education }}</td>
+                         </tr> 
+                         <tr>
+                             <td>Wor</td>
+                             <td>{{ user.work }}</td>
+                         </tr> 
+                      </tbody>
+                  </table>
+                </div>
+                <div class="clearfix"></div>
+                <div class="statis_ul">
+                  <h1 class="fs-16 edit_txt">Statistics</h1>
+                  <table class="table table-striped">
+                    <tr>
+                      <td><span>You have created 0 entries</span></td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="clearfix"></div>
+                <div class="achievements_list">
+                  <h1 class="fs-16 edit_txt">Achievements</h1>
+                  <div class="row">
+                    <div class="col-md-6 col-sm-6 achievements_secs">
+                        <ul class="achievements_ul">
+                            <li {% if 'first_entry' not in user.achievements %} class="disabled_t" {% endif %}>Create your first entry</li>
+                            <li {% if 'first_pub' not in user.achievements %} class="disabled_t" {% endif %}>Enter your first scientific publication</li>
+                            <li {% if 'first_correct_on' not in user.achievements %} class="disabled_t" {% endif %}>Make your first correction on existing entries</li>
+                            <li {% if 'first_forum_comment' not in user.achievements %} class="disabled_t" {% endif %}>Write your first forum comment</li>
+                            <li {% if '100_view_content' not in user.achievements %} class="disabled_t" {% endif %}>>Make content that is viewed by 100 people<</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-sm-6 achievements_secs">
+                        <ul class="achievements_ul">
+                            <li {% if 'earn_10_credit' not in user.achievements %} class="disabled_t" {% endif %}>Earn €10 for your participation</li>
+                            <li {% if 'get_1_friend' not in user.achievements %} class="disabled_t" {% endif %}>Get 1 friend to sign up on Genopedia</li>
+                            <li {% if 'answer_5_posts' not in user.achievements %} class="disabled_t" {% endif %}>Answer 5 different forum posts</li>
+                            <li {% if 'delete_useless_page' not in user.achievements %} class="disabled_t" {% endif %}>Delete on useless page</li>
+                            <li {% if '1000_view_content' not in user.achievements %} class="disabled_t" {% endif %}>Make content that is viewed by 1000 people</li>
+                        </ul>
+                    </div>
+                    <!-- <li {% if 'something' not in user.achievements %} class="disabled_t" {% endif %} -->
+                    <div class="clearfix"></div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 colsm-3 profile_right">
+        <h2>Inbox</h2>
+        {% if user.friends %}
+          {% for f in user.friends %}
+          <div class="right_p_bg">
+              <ul>
+                  <li>
+                    <div class="user_s vert_mid">
+                      <img src="{% if f.photo %} /static/genopedia/public/{{ f.photo }} {% else %} {% static 'genopedia/images/demo_user1.jpg' %} {% endif %}" class="round_img"/>
+                      {% if f.num_of_new_messages > 0%}
+                        <span class="vert_mid">{{ f.num_of_new_messages }}</span>
+                      {% endif %}
+                    </div>
+                    <p class="semibold_txt"><a href="/user/inbox?u={{ f.username }}">{{ f.username }}</a></p>
+                  </li>
+              </ul>
+              <div class="clearfix"></div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div class="right_p_bg3">
+              <ul>
+                  <li></li>
+                  <li><p>No recently contact</p></li>
+              </ul>
+              <div class="clearfix"></div>
+          </div>
+        {% endif %}
+        <div class="text-center">
+            <a href="/user/inbox" class=" btn-block p-15 btn-green">All Message</a>
+            <div class="clearfix"></div>
+        </div>
+        <div class="m-t-15 text-center">
+          <a href="/user/change-password" class="text-left">Change Password</a>
+        </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('.u-pf-up-prev').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+    $(".u-pf-up").change(function(){
+        readURL(this);
+    });
+  });
+</script>

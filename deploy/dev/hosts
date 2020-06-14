@@ -1,0 +1,4 @@
+# Genopedia User
+127.0.0.1         user-api.genopedia.local
+127.0.0.1         user-admin.genopedia.local
+127.0.0.1         user-front.genopedia.local

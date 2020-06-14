@@ -1,0 +1,37 @@
+{% if alert %}
+    {% if alert == 'ok' %}
+    <div class="alert alert-info">The file has been uploaded successfully!</div>
+    {% else %}
+    <div class="alert alert-danger">The file can not upload!</div>
+    {% endif %}
+{% endif %}
+<div class="card">
+    <div class="card-header">
+        <h2>Upload file</h2>
+    </div>
+    <div class="card-body card-padding">
+        <div class="col-sm-12" style="margin-bottom: 20px; padding-left: 0">
+            {% if updated_at %}
+            <span>Lastest update: {{ updated_at }}</span>
+            <a id="information_add_new" href="/user/file_remove/{{ user_id }}" class="btn btn-xs btn-danger btn-icon-text waves-effect" style="margin-left: 10px;">Remove</a>
+            {% else %}
+            <span>No file uploaded</span>
+            {% endif %}
+        </div>
+        <form action="/user/file/{{ user_id }}" method="POST" enctype="multipart/form-data">
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+                <span class="btn btn-info btn-file m-r-10">
+                    <span class="fileinput-new">Select file</span>
+                    <span class="fileinput-exists">upload</span>
+                    <input type="file" name="file" accept="text/plain">
+                </span>
+                <span class="fileinput-filename"></span>
+                <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+            </div>
+            <br>
+            <button type="submit" name="submit" class="btn btn-primary btn-sm waves-effect">Submit</button>
+        </form>
+        <br>
+        <p><em>Please select the file from your computer. These should be uploaded and saved in user account</em></p>
+    </div>
+</div>

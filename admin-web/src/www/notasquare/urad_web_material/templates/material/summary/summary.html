@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-md-8">
+        {% include 'material/summary/description.html' %}
+
+        <div class="row">
+            <div class="col-md-6">
+                {% include 'material/summary/pending_blocks.html' %}
+            </div>
+            <div class="col-md-6">
+                {% include 'material/summary/approved_blocks.html' %}
+            </div>
+        </div>
+        {% include 'material/summary/blocks.html' %}  
+    </div>
+
+    <div class="col-md-4">
+        {% include 'material/summary/toolbox.html' %}
+        {% include 'material/summary/comment.html' %}
+    </div>
+</div>

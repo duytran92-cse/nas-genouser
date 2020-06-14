@@ -1,0 +1,228 @@
+{% load static %}
+<div class="main_cont">
+    <div class="container">
+        <div class="row">
+            <div class="bg_colr">
+                <div class="seperate_line_inbox">&nbsp;</div>
+                <div class="col-md-3 col-sm-3 profile_right">
+                    <div class="search_input bor-0">
+                        <form action="/user/inbox" method="GET" class="bor-0">
+                            <i class="fa fa-search absolute_i"></i>
+                            <input name="qu" type="text" value="" class="form-control input_a" placeholder="Search for name" onFocus="this.placeholder = ''" onBlur="this.placeholder = 'Search for name'">
+                        </form>
+                    </div>
+                    <div class="right_p_bg">
+                        <div class="inbox-box" style="min-height: 709px;">
+                            <ul>
+                                {% for i in contact %}
+                                <li class="{% if i.username == user_active %} li-active {% endif %}">
+                                    <div class="user_s vert_mid">
+                                        <img src="{% static 'genopedia/images/demo_user1.jpg' %}" class="round_img"/>
+                                        {% if i.num_of_new_messages > 0%}
+                                            <span class="vert_mid">{{ i.num_of_new_messages }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="user_name_r semibold_txt">
+                                        <a href="/user/inbox?u={{ i.username }}">{{ i.username }}</a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-9 col-sm-9 inbox_right" id="inbox">
+                    {{ inbox }}
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var InboxBanner = React.createClass({
+        componentDidMount: function() {
+            setInterval(this.realtime_message, 5000);
+            jQuery('#box-his').scrollTop(jQuery('#box-chat').height());
+        },
+        realtime_message: function() {
+            var root = this;
+            var selected_user_name = jQuery('#selected_user_name').val();
+            var selected_user_id = jQuery('#selected_user_id').val();
+            if (typeof(selected_user_name) != "undefined" && typeof(selected_user_id) != "undefined") {
+                jQuery.ajax({
+                    url: '/user/mess-realtime',
+                    type: "POST",
+                    data: {
+                        'selected_user_name' : selected_user_name,
+                        'selected_user_id': selected_user_id
+                    },
+                    success: function (result) {
+                        root.setState({
+                            inbox: result
+                        });
+                    },
+                    error: function(message) {
+                    }
+                });
+            }
+            if (jQuery('#box-his').scrollTop() == jQuery('#box-chat').height()) {
+                jQuery('#box-his').scrollTop(jQuery('#box-chat').height());
+            }
+        },
+        getInitialState: function() {
+            return {
+                inbox: this.props.inbox
+            }
+        },
+        renderChatHisBox: function () {
+            var inbox = this.state.inbox;
+            var element = [];
+            if (inbox.messages.length > 0) {
+                var elementChat = [];
+                inbox.messages.map(function(val, keyid) {
+                    var classContent = '';
+                    var classNameUser = '';
+                    var elementHis = [];
+                    var src = "{% static 'genopedia/images/demo_user1.jpg' %}";
+                    if (val.sender == inbox.selected_user.username) {
+                        classNameUser = "message-data align-left";
+                        classContent = "dropdown you-message float-left";
+                    }
+                    else {
+                        classNameUser = "message-data align-right";
+                        classContent = "dropdown me-message float-right";
+                    }
+                    if (val.user_before == '' || val.user_before != val.sender) {
+                        classContent+= " message";
+                        elementHis.push(
+                                React.createElement('div', {className: classNameUser, key:'chat-line-key-'+ keyid},
+                                    React.createElement('img', {key:'chat-avar-key-'+ keyid, className: 'round_img', src: src, style: { 'cursor': 'pointer'}})
+                                )
+                        );
+                    }
+                    else {
+                        classContent+= " message-non-content";
+                    }
+                    elementHis.push(
+                            React.createElement('div', {className: classContent, key: 'div-content-'+ keyid},
+                                val.message,
+                                React.createElement('div', {className: 'dropdown-content', key: 'div-row-content-'+ keyid}, val.sender + " - "+ val.when+ " ago")
+                            )
+                    );
+                    elementChat.push(
+                            React.createElement('li', {className: 'clearfix', key: keyid+ "-li"}, elementHis)
+                    );
+                });
+                element.push(React.createElement('ul', {className: 'chat-ul', key: 'ul-key'}, elementChat));
+            }
+            else {
+                element.push(
+                    React.createElement("div", {className: "inbox_secs border_bot", style: {"minHeight": "552px"}, key: 'no-contact'},
+                        React.createElement("div", {className:"col-md-12 com-sm-12"},
+                            React.createElement("p", {className: "semibold_txt text-center p-t-15"}, "No contact yet")
+                        ),
+                        React.createElement("div", {className:"clearfix"})
+                    )
+                );
+            }
+            return (
+                React.createElement("div", {className: "inbox-box", id:'box-his'},
+                    React.createElement("div", {className: "chat", id:'box-chat'},
+                        React.createElement("div", {className: "chat-history"},
+                            element
+                        )
+                    )
+                )
+            )
+        },
+        renderSendChatBox: function() {
+            var root  = this;
+            if (this.state.inbox.selected_user) {
+                return (
+                    React.createElement('div', {className: "commnt_post_secs"},
+                        React.createElement('div', {className: "p_cmnt_s"},
+                            React.createElement('input', {"type": 'hidden',id:"selected_user_id", name: 'selected_user_id', value: this.state.inbox.selected_user.id}),
+                            React.createElement('input', {"type": 'hidden',id:"selected_user_name", name: 'selected_user_name', value: this.state.inbox.selected_user.username}),
+                            React.createElement('textarea', {
+                                "rows": '4',
+                                id: 'message',
+                                className: "trans_textarea",
+                                placeholder:"Write a message....",
+                                onKeyPress: function(e) {
+                                    if(e.which == 13 && !e.shiftKey) {
+                                        var selected_user_name = jQuery('#selected_user_name').val();
+                                        var selected_user_id = jQuery('#selected_user_id').val();
+                                        var message = jQuery('#message').val();
+                                        if (message != '') {
+                                            jQuery.ajax({
+                                                url: '/user/send',
+                                                type: "POST",
+                                                data: {
+                                                    'selected_user_name' : selected_user_name,
+                                                    'selected_user_id': selected_user_id,
+                                                    'message': message
+                                                },
+                                                success: function (result) {
+                                                    root.setState({
+                                                        inbox: result
+                                                    });
+                                                    jQuery('#message').val('').empty();
+                                                },
+                                                error: function(message) {
+                                                }
+                                            });
+                                            jQuery('#box-his').scrollTop(jQuery('#box-chat').height());
+                                            e.preventDefault();
+                                        }
+                                    }
+                                }
+                            })
+                        )
+                    )
+                )
+            }
+            else {
+                return [];
+            }
+        },
+        renderHeading: function() {
+            var src = "";
+            var inbox = this.state.inbox;
+            if (inbox.selected_user) {
+                src = "{% static 'genopedia/images/demo_user1.jpg' %}";
+                return (
+                    React.createElement('div', {className: "inbox_border"},
+                        React.createElement('img', {style: { "cursor": "pointer"}, className: "round_img", src: src}),
+                        React.createElement('span', {className: 'h1'}, ' ' + inbox.selected_user.username)
+                    )
+                )
+            }
+            else {
+                return [];
+            }
+        },
+        render: function() {
+            return (
+                React.createElement('div', {},
+                    this.renderHeading(),
+                    this.renderChatHisBox(),
+                    React.createElement('div', {className: 'clearfix'}),
+                    this.renderSendChatBox()
+                )
+            )
+        }
+    });
+    ReactDOM.render(
+        React.createElement(InboxBanner,
+            {
+                 inbox: {{ inbox | safe }},
+             }),
+            document.getElementById('inbox')
+    );
+
+
+</script>

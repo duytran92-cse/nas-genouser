@@ -1,0 +1,20 @@
+{% load static %}
+<div class="banner_new_bg">
+    <div class="banner_n banner_fill">
+        <div class="container">
+            <div class="inner_banner inner_banner_2">
+                <div class="heading_s_left heading_s green-border-btm" style="margin-bottom: 35px;">
+                    <span class="glyphicon glyphicon-upload" style="font-family: 'Glyphicons Halflings'; color: #95C809"></span><span> Upload genetic data</span>
+                </div>
+                <div class="banner_c not-margin">
+                    <form action="/user/update_variation" method="POST" enctype="multipart/form-data">
+                        <p style="padding-bottom: 30px;">Please select the file from your computer. These should be uploaded and saved in your account.</p>
+                        <input type="file" name="file" accept="text/plain">
+                        <br><br>
+                        <input type="submit" class="buttn1 buttn-green" value="Upload">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

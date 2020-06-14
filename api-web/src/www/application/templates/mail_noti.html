@@ -1,0 +1,36 @@
+<table style="border-collapse:collapse" width="100%" cellspacing="0" cellpadding="0" border="0">
+    <tr>
+        <td>
+            <span style="text-align:center;display:block;font-family:SFUIText-Regular,Segoe UI,Helvetica Neue,Helvetica,Arial,sans-serif;font-size:20px;line-height:24px">You have new notifications</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="line-height:14px" height="14">&nbsp;</td>
+    </tr>
+    <tr>
+        <td>
+            {% for i in data %}
+            <span style="text-align:center;display:block;font-family:SFUIText-Regular,Segoe UI,Helvetica Neue,Helvetica,Arial,sans-serif;font-size:15px;line-height:20px;color:#8e8e8e">{{ i.message }}</span>
+            {% endfor %}
+        </td>
+    </tr>
+    <tr>
+        <td style="line-height:14px" height="14">&nbsp;</td>
+    </tr>
+    <tr>
+        <td>
+            <span style="text-align:center;display:block;font-family:SFUIText-Regular,Segoe UI,Helvetica Neue,Helvetica,Arial,sans-serif;font-size:15px;line-height:20px;color:#8e8e8e">You'll need to log in Genopedia to see</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="line-height:14px" height="14">&nbsp;</td>
+    </tr>
+    <tr>
+        <td>
+            <a href="{{ link }}/sign-in" style="color:#3b5998;text-decoration:none;display:block;width:100%" target="_blank"><span style="border-radius:4px;padding:12px 0px 12px 0px;text-align:center;font-family:SFUIText-Regular,Segoe UI,Helvetica Neue,Helvetica,Arial,sans-serif;font-size:16px;line-height:21px;display:inline-block;color:#ffffff;background-color: #95c809;width:80%;margin:0 10% 0 10%;font-weight:bold">Go to Genopedia</span></a>
+        </td>
+    </tr>
+    <tr>
+        <td style="line-height:14px" height="14">&nbsp;</td>
+    </tr>
+</table>

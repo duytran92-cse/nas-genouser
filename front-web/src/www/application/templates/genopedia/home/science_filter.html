@@ -1,0 +1,40 @@
+{% load static %}
+<div class="banner_new_bg">
+    <div class="banner_n banner_fill">
+        <div class="container">
+            <div class="inner_banner inner_banner_2">
+                <div class="heading_s_left heading_s green-border-btm" style="margin-bottom: 35px;">
+                    <span class="glyphicon glyphicon-filter" style="font-family: 'Glyphicons Halflings'; color: #95C809"></span><span> Genopedia Science Filter</span>
+                </div>
+                <div class="banner_c not-margin">
+                    <p style="padding-bottom: 30px;">Please select the filter level you prefer. Only the relevant data will be displayed.</p>
+                    <form action="/user/update_variation" method="POST">
+                        <div class="row">
+                            <div class="col-md-6" style="margin-bottom: 45px;">
+                                <input type="radio" name="science_filter" value="strong" {% if science_filter == 'strong'%} checked {% endif %}>
+                                <label style="font-size: 14px;"><b style="color: #1c8804; font-size: 16px">Strong Filter</b> - Medical use</label>
+                                <p style="margin-left: 15px;">Shows independently confirmed science but also single sources of scientific information such as single case reports that are considered medically valid and useable </p>
+                            </div>
+                            <div class="col-md-6" style="margin-bottom: 45px;">
+                                <input type="radio" name="science_filter" value="moderate" {% if science_filter == 'moderate'%} checked {% endif %}>
+                                <label style="font-size: 14px;"><b style="color: #a92a00; font-size: 16px">Moderate Filter</b> - Promising, more research needed</label>
+                                <p style="margin-left: 15px;">Shows medical grade information, but also science that was published, but not repeated in enough independent studies to be considered medically valid at this point. Many of these will later ascent to medical use in the future. </p>
+                            </div>
+                            <div class="col-md-6" style="margin-bottom: 45px;">
+                                <input type="radio" name="science_filter" value="weak" {% if science_filter == 'weak'%} checked {% endif %}>
+                                <label style="font-size: 14px;"><b style="color: #ea4108; font-size: 16px">Weak Filter</b> - Very early stage, more research needed</label>
+                                <p style="margin-left: 15px;">Also shows other information coming from at least 2 independent sources. </p>
+                            </div>
+                            <div class="col-md-6" style="margin-bottom: 45px;">
+                                <input type="radio" name="science_filter" value="no" {% if science_filter == 'no'%} checked {% endif %}>
+                                <label style="font-size: 14px;"><b style="color: #da0707; font-size: 16px">No Filter</b> - Anything goes</label>
+                                <p style="margin-left: 15px;">Shows all sources and user submissions without filtering. </p>
+                            </div>
+                        </div>
+                        <input type="submit" class="buttn1 buttn-green" value="Go">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

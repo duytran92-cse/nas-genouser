@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <h2>Messages</h2>
+            </div>
+            <div class="card-body">
+                <table class="table table-inner table-condensed">
+                    <tbody>
+                    {% for m in messages %}
+                        <tr>
+                            <td width="10%" style="text-align: right"><b>{{ m.sender }}</b></td>
+                            <td width="90%">{{ m.message }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

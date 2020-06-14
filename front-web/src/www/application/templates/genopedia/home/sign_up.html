@@ -1,0 +1,30 @@
+ <div class="container">
+    <div class="row bg-white m-t-50 m-b-50">
+        <div class="col-md-4 col-md-offset-4 m-t-50 m-b-50">
+            <h1>Sign Up</h1>
+            <form method="POST" action="/sign-up" class="p-t-15 p-b-15">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="username" placeholder="Username" value="{{ form_data.username }}">
+                    {% include 'genopedia/partials/messages.html' with tag='username' %}
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="email" placeholder="Email" value="{{ form_data.email }}">
+                    {% include 'genopedia/partials/messages.html' with tag='email' %}
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" placeholder="Password">
+                    {% include 'genopedia/partials/messages.html' with tag='password' %}
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="confirm" placeholder="Comfirm Password">
+                    {% include 'genopedia/partials/messages.html' with tag='confirm' %}
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-s-green pull-right">Sign up</button>
+                    <a href="/" class="btn btn-gray pull-right">Back</a>
+                </div>
+            </form>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
